@@ -1,0 +1,39 @@
+Public Class Form1
+    Dim grid(10, 10) As Button
+    Dim rndNumbers As New List(Of Integer)
+    Dim generator As New Random
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        createList()
+        createGrid()
+
+      
+    End Sub
+    Sub createGrid()
+        Dim indexCount As Integer = 0
+        For x = 0 To 9
+            For y = 0 To 9
+                grid(x, y) = New Button
+                With grid(x, y)
+                    .Width = 75
+                    .Height = 75
+                    .Left = 20 + x * 76
+                    .Top = 20 + y * 76
+                    .Text = rndNumbers(indexCount)
+                    indexCount += 1
+                End With
+                Me.Controls.Add(grid(x, y))
+            Next
+        Next
+    End Sub
+    Sub createList()
+        While rndNumbers.Count < 100
+            Dim newNumber As Integer = generator.Next(1, 101)
+
+            If Not rndNumbers.Contains(newNumber) Then
+                rndNumbers.Add(newNumber)
+            End If
+        End While
+    End Sub
+
+End Class
