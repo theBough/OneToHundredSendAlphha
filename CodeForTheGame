@@ -3,11 +3,11 @@ Public Class Form1
     Dim rndNumbers As New List(Of Integer)
     Dim generator As New Random
 
+    Dim target As Integer = 1
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         createList()
         createGrid()
-
-      
     End Sub
     Sub createGrid()
         Dim indexCount As Integer = 0
@@ -23,6 +23,7 @@ Public Class Form1
                     indexCount += 1
                 End With
                 Me.Controls.Add(grid(x, y))
+                AddHandler grid(x, y).Click, AddressOf buttonHandler
             Next
         Next
     End Sub
@@ -36,4 +37,23 @@ Public Class Form1
         End While
     End Sub
 
+    Sub buttonHandler(sender As Object, e As EventArgs)
+        If sender.text = target Then
+            target += 1
+            'if you want the button to hide
+            sender.hide()
+
+            'if you want it to change color.
+            'sender.backcolor = Color.Red
+            'sender.text = ""
+        Else
+            'take a life away.
+            lbllives.Text -= 1
+            If lbllives.Text < 1 Then
+                MsgBox("Sorry Champ You lost, please play my game again, I would appreciate a donation.")
+                End
+
+            End If
+        End If
+    End Sub
 End Class
